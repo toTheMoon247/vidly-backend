@@ -1,0 +1,23 @@
+{
+  "name": "Vidly-Backend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toTheMoon247/vidly-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/toTheMoon247/vidly-backend/issues"
+  },
+  "homepage": "https://github.com/toTheMoon247/vidly-backend#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
