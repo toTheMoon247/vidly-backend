@@ -71,13 +71,14 @@ app.delete('/api/genres/:id', (req, res) => {
   res.send(genre);
 });
 
-app.get('/', (req, res) => {
-	res.send('Hello World');
-});
+// Helper Functions
+function validateGenre(genre) {
+  const schema = {
+    name: Joi.string().min(3).required()
+  };
 
-app.get('/api/courses', (req, res) => {
-	res.send([1, 2, 3, 4]);
-});
+  return Joi.validate(genre, schema);
+}
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`)); 
