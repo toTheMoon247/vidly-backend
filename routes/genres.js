@@ -1,24 +1,12 @@
-const Joi = require('joi'); // Joi is a data validation package
+const {Genre, validate} = require('../models/genre');
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
-// Define a schema(Mongoose) for our gernes collection in mongoDB
-const genreSchema = new mongoose.Schema({
-	name: {
-		type: String,
-		required: true,
-		minlength: 2,
-		maxlength: 50
-	}
-});
-
-const Genre = mongoose.model('Genre', genreSchema);
-
 // Create
 router.post('/', async (req, res) => {
 	// Check for errors - if there are errors return to the client
-	const { error } = validateGenre(req.body);
+	const { error } = validate(req.body);
 	if (error)
 		return res.status(400).send(error.details[0].message);
 
@@ -49,7 +37,7 @@ router.get('/:id', async (req, res) => {
 // Update
 router.put('/:id', async (req, res) => {
 
-	const { error } = validateGenre(req.body); 
+	const { error } = validate(req.body); 
 	if (error) 
 		return res.status(400).send(error.details[0].message);
 	
@@ -71,14 +59,5 @@ router.delete('/:id', async (req, res) => {
 
 	res.send(genre);	
 });
-
-// Helper Functions
-function validateGenre(genre) {
-  const schema = {
-    name: Joi.string().min(3).required()
-  };
-
-  return Joi.validate(genre, schema);
-}
 
 module.exports= router;
