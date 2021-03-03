@@ -7,12 +7,12 @@ const router = express.Router();
 const customerSchema = new mongoose.Schema({
 	isGold: {
 		type: Boolean,
-		required: ture
-	}
+		default: false
+	},
 	name: {
 		type: String,
 		required: true
-	}
+	},
 	phone: {
 		type: String,
 		required: true
@@ -28,9 +28,10 @@ router.post('/', async (req, res) => {
 
 	// Create a customer object
 	let customer = new Customer( {isGold: req.body.isGold, name: req.body.name, phone: req.body.phone} );
-	
+	console.log(customer);
+
 	// Update the database
-	customer = await Customer.save(customer);
+	customer = await customer.save(customer);
 
 	// return response to the client
 	res.send(customer);
@@ -43,8 +44,8 @@ router.get('/', async (req, res) => {
 	res.send(customers);
 });
 
-router.get('/:id', (req, res) => {
-	customer = await Customer.findById(req.paramas.id);
+router.get('/:id', async (req, res) => {
+	const customer = await Customer.findById(req.paramas.id);
 	if (!customer)
 		return res.status(404).send("couldn't find customer id");
 
@@ -52,5 +53,29 @@ router.get('/:id', (req, res) => {
 });
 
 // Update
+router.put('/:id', async (req, res) => {
+	// validate user body request (check that the customer properties are valid)
+	// TODO
+
+	const reqBody = {isGold: req.body.isGold, name: req.body.name, phone: req.body.phone};
+	// find customer in the database by id and update it (all in one go)
+	const customer = await Customer.findByIdAndUpdate(req.paramas.id, reqBody, { new: true } );
+	if (!customer)
+		return res.status(404).send("couldn't find customer id");
+
+	// return response to the client 
+	return res.send(customer);
+});
 
 // Delete
+router.delete('/:id', async (req, res) => {
+	// find customer in the database and remove it (all in one go)
+	const customer = Customer.findByIdAndRemove(req.paramas.id);
+	if (!customer)
+		return res.status(404).send("couldn't find customer id");
+
+	// return response to the client
+	return res.send(customer);	
+});
+
+module.exports = router;

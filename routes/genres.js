@@ -7,7 +7,7 @@ const router = express.Router();
 const genreSchema = new mongoose.Schema({
 	name: {
 		type: String,
-		req3uired: true,
+		required: true,
 		minlength: 2,
 		maxlength: 50
 	}
