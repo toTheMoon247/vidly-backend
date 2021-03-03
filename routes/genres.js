@@ -7,7 +7,7 @@ const router = express.Router();
 const genreSchema = new mongoose.Schema({
 	name: {
 		type: String,
-		required: true,
+		req3uired: true,
 		minlength: 2,
 		maxlength: 50
 	}
@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
 
 	// Create a genre object
 	let genre = new Genre({ name: req.body.name });
-	genre = await genre.save();	
+	genre = await Genre.save();	
 
 	// Update the client
 	res.send(genre);
