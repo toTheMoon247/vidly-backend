@@ -1,25 +1,7 @@
-const Joi = require("joi");
+const {Customer, validate} = require('../models/customer');
 const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
-
-// Define the schema for customers
-const customerSchema = new mongoose.Schema({
-	isGold: {
-		type: Boolean,
-		default: false
-	},
-	name: {
-		type: String,
-		required: true
-	},
-	phone: {
-		type: String,
-		required: true
-	}
-});
-
-const Customer = mongoose.model('Customer', customerSchema);
 
 // Create
 router.post('/', async (req, res) => {
