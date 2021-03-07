@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 
 // Connect to the database
-mongoose.connect('mongodb://localhost/vidly')
+mongoose.connect('mongodb://localhost/vidly') // TODO:: Extract it to a config file
 	.then(() => console.log('Connected to mongoDB...'))
 	.catch(err => console.error('# Could not connect to MongoDB #'));
 
